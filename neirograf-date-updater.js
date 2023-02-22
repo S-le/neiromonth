@@ -70,11 +70,6 @@ jQuery(document).ready(function () {
     $elBtnText.text(defineButtonLabel());
   }
 
-  // const $elStartTimeLabel = jQuery("div.start-time-label").find("span");
-  // if ($elStartTimeLabel.length) {
-  //   $elStartTimeLabel.text(defineStartTimeLabel());
-  // }
-
   const elStartTimeLabel = document.querySelector("div.start-time-label span");
   if (elStartTimeLabel) {
     elStartTimeLabel.innerHTML = defineStartTimeLabel();
