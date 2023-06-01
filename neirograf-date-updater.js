@@ -23,7 +23,6 @@ jQuery(document).ready(function () {
       const formatter = new Intl.DateTimeFormat("ru-RU", {
         day: "numeric",
         month: "long",
-        year: "numeric",
       });
       return formatter;
     } catch (e) {
@@ -42,8 +41,7 @@ jQuery(document).ready(function () {
         "декабря",
       ];
       return {
-        format: (d) =>
-          `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`,
+        format: (d) => `${d.getDate()} ${months[d.getMonth()]}`,
       };
     }
   }
@@ -51,27 +49,11 @@ jQuery(document).ready(function () {
   function defineButtonLabel() {
     const d = getDate();
     const formatter = disposeFormatter();
-    return "Старт " + formatter.format(d);
+    return formatter.format(d);
   }
 
-  function defineStartTimeLabel() {
-    const mskDate = convertTZ(new Date());
-    const mskHours = mskDate.getHours();
-
-    if (mskHours >= 15 && mskHours <= 19) {
-      return "19:00 МСК";
-    }
-
-    return "15:00 или 19:00 МСК";
-  }
-
-  const $elBtnText = jQuery("#date-to-change").find(".elementor-button-text");
-  if ($elBtnText.length) {
-    $elBtnText.text(defineButtonLabel());
-  }
-
-  const elStartTimeLabel = document.querySelector("div.start-time-label span");
-  if (elStartTimeLabel) {
-    elStartTimeLabel.innerHTML = defineStartTimeLabel();
-  }
+  const eventLabel = defineButtonLabel();
+  jQuery("div.event-date span").each(function () {
+    $(this).text(eventLabel);
+  });
 });
