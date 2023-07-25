@@ -18,40 +18,14 @@ jQuery(document).ready(function () {
     return d;
   }
 
-  function disposeFormatter() {
-    try {
-      const formatter = new Intl.DateTimeFormat("ru-RU", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-      return formatter;
-    } catch (e) {
-      const months = [
-        "января",
-        "февраля",
-        "марта",
-        "апреля",
-        "мая",
-        "июня",
-        "июля",
-        "августа",
-        "сентября",
-        "октября",
-        "ноября",
-        "декабря",
-      ];
-      return {
-        format: (d) =>
-          `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`,
-      };
-    }
-  }
-
-  function defineButtonLabel() {
+  function defineStartDateLabel() {
     const d = getDate();
-    const formatter = disposeFormatter();
-    return "Старт " + formatter.format(d);
+    const formatter = new Intl.DateTimeFormat("ru-RU", {
+      day: "numeric",
+      month: "long",
+    });
+
+    return formatter.format(d);
   }
 
   function defineStartTimeLabel() {
@@ -65,13 +39,8 @@ jQuery(document).ready(function () {
     return "15:00 или 19:00 МСК";
   }
 
-  const $elBtnText = jQuery("#date-to-change").find(".elementor-button-text");
+  const $elBtnText = jQuery("span.date-to-change");
   if ($elBtnText.length) {
-    $elBtnText.text(defineButtonLabel());
-  }
-
-  const elStartTimeLabel = document.querySelector("div.start-time-label span");
-  if (elStartTimeLabel) {
-    elStartTimeLabel.innerHTML = defineStartTimeLabel();
+    $elBtnText.text(defineStartDateLabel() + " в " + defineStartTimeLabel());
   }
 });
